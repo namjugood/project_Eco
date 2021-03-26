@@ -1,4 +1,9 @@
 # Project : ECO
+![count](https://img.shields.io/github/languages/count/beygee/survive)
+![top](https://img.shields.io/github/languages/top/beygee/survive)
+![repo-size](https://img.shields.io/github/repo-size/beygee/survive)
+![commit](https://img.shields.io/github/commit-activity/w/beygee/survive)
+![last-commit](https://img.shields.io/github/last-commit/beygee/survive)
 ## 1. About project
 1. We hope to make __"Music Streaming Webpage"__
 	- Bench-marking : FLO(https://www.music-flo.com/)  
