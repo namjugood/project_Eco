@@ -1,5 +1,3 @@
-Readme
-
 # Project : ECO
 ## 1. About project
 1. We hope to make __"Music Streaming Webpage"__
