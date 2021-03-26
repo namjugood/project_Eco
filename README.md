@@ -3,8 +3,10 @@
 1. We hope to make __"Music Streaming Webpage"__
 	- Bench-marking : FLO(https://www.music-flo.com/)  
 	- You can see our detail of project below documents(LNG:KOR & ENG)
-		- Functional specification : [Link(KOR)](https://docs.google.com/spreadsheets/d/1GkkUYpng9CMe0P4aIt9WKx0CFHZy1EF6HUVFZVcUqy4/edit?usp=sharing)
-		- PPT : [Link(ENG+KOR)](https://drive.google.com/file/d/1TQZtdcUhs6oai4WrKwn95tfxlqUOmw4f/view?usp=sharing)
+	
+		|Functional specification|[Link(KOR)](https://docs.google.com/spreadsheets/d/1GkkUYpng9CMe0P4aIt9WKx0CFHZy1EF6HUVFZVcUqy4/edit?usp=sharing)|
+		|---|---|
+		|PPT|[Link(ENG+KOR)](https://drive.google.com/file/d/1TQZtdcUhs6oai4WrKwn95tfxlqUOmw4f/view?usp=sharing)|
 2. Developers 
 
 	|<img width="50" src="https://avatars.githubusercontent.com/u/77426494?s=64&v=4"/></br>[MW.Kim]()|<img width="50" src="https://avatars.githubusercontent.com/u/80030590?s=120&v=4"/></br>[NJ Lee](https://https://github.com/namjugood)|<img width="50" src="https://avatars.githubusercontent.com/u/79358518?s=64&v=4"/></br>[JinGoon-Kim](https://github.com/JinGoon-Kim)|<img width="50" src="https://avatars0.githubusercontent.com/u/28638438?s=120&v=4"/></br>[junohera](https://https://github.com/Junohera)|<img width="50" src="https://avatars.githubusercontent.com/u/81345782?s=64&v=4"/></br>[mamemin](https://github.com/mamemin)|
@@ -17,7 +19,7 @@
 ---
 ## 3. Environment
 |OS|Windows 10|
-|---|---|
+|:---|:---|
 |Browser|Chrome|
 |WAS|Apache Tomcat 9.0|
 |DBMS|Oracle XE 11 6g|
