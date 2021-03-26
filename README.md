@@ -1,9 +1,10 @@
 # Project : ECO
-![count](https://img.shields.io/github/languages/count/beygee/survive)
-![top](https://img.shields.io/github/languages/top/beygee/survive)
-![repo-size](https://img.shields.io/github/repo-size/beygee/survive)
-![commit](https://img.shields.io/github/commit-activity/w/beygee/survive)
-![last-commit](https://img.shields.io/github/last-commit/beygee/survive)
+![count](https://img.shields.io/github/languages/count/namjugood/project_Eco)
+![top](https://img.shields.io/github/languages/top/namjugood/project_Eco)
+![repo-size](https://img.shields.io/github/repo-size/namjugood/project_Eco)
+![commit](https://img.shields.io/github/commit-activity/w/namjugood/project_Eco)
+![last-commit](https://img.shields.io/github/last-commit/namjugood/project_Eco)
+
 ## 1. About project
 1. We hope to make __"Music Streaming Webpage"__
 	- Bench-marking : FLO(https://www.music-flo.com/)  
