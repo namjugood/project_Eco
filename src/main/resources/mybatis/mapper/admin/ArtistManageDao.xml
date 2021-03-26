@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.admin.dao.IArtistManageDao">
+
+	<select id="list" resultType="com.eco.dto.ArtistVO" parameterType="com.eco.dto.search.SearchDTO">
+		select * from(
+		select * from(
+		select rownum as rn, t.* from 
+		((
+			select * from artist_view
+			<where>
+				<!-- searchkeywordTarget like searchKeyword -->
+				<if test="searchkeywordTarget != ''">
+					<choose>
+						<when test="searchkeywordTarget == 'name'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+					</choose>
+				</if>
+
+				<!-- selectedGenre = gseq -->
+				<if test="selectedGenre != ''">and gseq = #{selectedGenre}</if>
+
+				<!-- selectedGroupyn like -->
+				<if test="selectedGroupyn != ''">and groupyn like '%'||#{selectedGroupyn}||'%'</if>
+
+				<!-- selectedGender like -->
+				<if test="selectedGender != ''">and gender like '%'||#{selectedGender}||'%'</if>
+
+			</where>
+			order by
+				<!-- searchFilter -->
+				<choose>
+					<when test="searchFilter == 'nameDesc'">name desc</when>
+					<when test="searchFilter == 'nameAsc'">name asc</when>
+					<when test="searchFilter == 'groupynDesc'">groupyn desc</when>
+					<when test="searchFilter == 'groupynAsc'">groupyn asc</when>
+					<when test="searchFilter == 'genderDesc'">gender desc</when>
+					<when test="searchFilter == 'genderAsc'">gender asc</when>
+					<when test="searchFilter == 'gseqDesc'">gseq desc</when>
+					<when test="searchFilter == 'gseqAsc'">gseq asc</when>
+					<when test="searchFilter == 'rankDesc'">rank desc</when>
+					<when test="searchFilter == 'rankAsc'">rank asc</when>
+					<when test="searchFilter == 'likecountDesc'">likecount desc</when>
+					<when test="searchFilter == 'likecountAsc'">likecount asc</when>
+					<when test="searchFilter == 'abcountDesc'">abcount desc</when>
+					<when test="searchFilter == 'abcountAsc'">abcount asc</when>
+					<when test="searchFilter == 'mucountDesc'">mucount desc</when>
+					<when test="searchFilter == 'mucountAsc'">mucount asc</when>
+					<otherwise>atseq desc</otherwise>
+				</choose>
+		)t)
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.endNum}
+	</select>
+	
+	<update id="update" parameterType="com.eco.dto.ArtistVO">
+		update artist
+			set
+				name = #{name}
+				, groupyn = #{groupyn}
+				, gender = #{gender}
+				, gseq = #{gseq}
+				, img = #{img}
+				, description = #{description}
+		where atseq = #{atseq}
+	</update>
+	
+	<insert id="insert" parameterType="com.eco.dto.ArtistVO">
+		insert into artist(
+			atseq
+			, name
+			, groupyn
+			, gender
+			, gseq
+			, img
+			, description
+		) values(
+			artist_seq.nextval
+			, #{name}
+			, #{groupyn}
+			, #{gender}
+			, #{gseq}
+			, #{img, jdbcType=VARCHAR}
+			, #{description}
+		)
+		<selectKey keyProperty="atseq" resultType="int">
+			select artist_seq.currval as atseq from dual
+		</selectKey>
+	</insert>
+	
+	<delete id="delete">
+		delete from artist where atseq = #{param1}
+	</delete>
+
+</mapper>

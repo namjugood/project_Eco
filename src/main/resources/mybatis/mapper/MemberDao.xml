@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.dao.IMemberDao">
+	<select resultType="com.eco.dto.MemberVO" id="confirmNamePhone">
+	select * from member where name=#{param1} and phone=#{param2}
+	 </select>
+
+	<select resultType="com.eco.dto.MemberVO" id="confirmIdNamePhone">
+	select * from member where id=#{param1} and name=#{param2} and phone=#{param3}
+	 </select>
+
+	<update id="resetPw" parameterType="com.eco.dto.MemberVO">
+	update member set pw=#{pw} where id=#{id}
+	 </update>
+	
+	<select resultType="com.eco.dto.MemberVO" id="getMember">
+	select * from member where id=#{param1} 
+	</select>
+
+	<insert id="insertMember" parameterType="com.eco.dto.MemberVO">
+	insert into member(useq, id, pw, name, phone, gender)
+	values(member_seq.nextval,#{id},#{pw},#{name},#{phone},#{gender}) 
+	</insert>
+	
+	<update id="updateMember" parameterType="com.eco.dto.MemberVO">
+		update member set pw=#{pw}, name=#{name}, gender=#{gender},
+		phone=#{phone} where id=#{id}
+	</update>
+	
+	<!-- membership 구매 -->
+	<update id="buyMembership30" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate + 30, membership = 'Y'
+	 where useq = #{useq}
+	</update>
+	<update id="buyMembership7" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate+7, membership = 'Y'
+	 where useq = #{useq}
+	</update>
+	<update id="buyMembership1" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate+1, membership = 'Y'
+	 where useq = #{useq}
+	</update>
+	
+	<!-- membership 구매 내역 조회 -->
+	
+	<!-- 멤버십 기한만료 체크 -->
+	<update id="membershipExpire" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate, membership = 'N'
+	 where useq = #{useq}
+	</update>
+	
+	<select id="getDuplicatedPhoneUserCount" resultType="_int">
+		select count(*) from MEMBER where phone = #{param1}
+	</select> 
+	 
+	
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eco.dao.IBoardDao">
+
+	<select id="boardList" resultType="com.eco.dto.BoardVO"
+		parameterType="com.eco.dto.Paging">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from ( (select * from ${param1} order by ${param2} desc) b )
+		) where rn &gt;= #{param3}
+		) where rn &lt;= #{param4}
+	</select>
+	
+	<select id="boardListSearch" resultType="com.eco.dto.BoardVO"
+		parameterType="com.eco.dto.Paging">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from ( (select * from ${param1} where title like '%'||#{param3}||'%' order by ${param2} desc) b )
+		) where rn &gt;= #{param4}
+		) where rn &lt;= #{param5}
+	</select>
+	
+	<insert id="qnaInsert" parameterType="com.eco.dto.BoardVO">
+		insert into qna (qseq, useq, title, content)
+			values (qna_seq.nextval, #{useq},#{title},#{content})
+	</insert>
+	
+	<select id="myboardList" resultType="com.eco.dto.BoardVO"
+		parameterType="com.eco.dto.Paging">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from ( (select * from ${param1} where useq = #{param5} order by ${param2} desc) b )
+		) where rn &gt;= #{param3}
+		) where rn &lt;= #{param4}
+	</select>
+	<select id="myQnaUpdateForm" resultType="com.eco.dto.BoardVO">
+		select * from qna_view where qseq = #{param1}
+	</select>
+	
+	<update id="myQnaUpdate" parameterType="com.eco.dto.BoardVO">
+		update qna set title = #{title}, content = #{content} where qseq = #{qseq}
+	</update>
+	
+	<delete id="myQnaDelete">
+		delete from qna where qseq = #{param1}
+	</delete>
+	
+	<select id="updateForm" resultType="com.eco.dto.BoardVO">
+		select * from ${param1} where ${param2} = #{param3}
+	</select>
+	
+	<delete id="boardDelete">
+		delete from ${param1} where ${param2} = #{param3}
+	</delete>
+	
+	<select id="getRecommendArtistList" resultType="com.eco.dto.ArtistVO">
+		select * from artist_view order by likecount desc
+	</select>
+	
+	
+	<select id="msearchSite" resultType="com.eco.dto.MusicVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="atsearchSite" resultType="com.eco.dto.ArtistVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="alsearchSite" resultType="com.eco.dto.AlbumVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="lysearchSite" resultType="com.eco.dto.MusicVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="adsearchSite" resultType="com.eco.dto.BoardVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="nosearchSite" resultType="com.eco.dto.BoardVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+</mapper>

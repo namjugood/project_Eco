@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.admin.dao.ITCGDao">
+	<select id="listTheme" resultType="com.eco.dto.ThemeVO">
+		select * from(
+		select * from(
+			select rownum as rn, t.* from 
+			( (select * from theme where title like '%'||#{param2}||'%' order by tseq desc) t )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<insert id="themeInsert" parameterType="com.eco.dto.ThemeVO">
+		insert into theme(tseq, title, img)
+		values(theme_seq.nextval, #{title}, #{img})
+	</insert>
+	
+	<select id="listChart" resultType="com.eco.dto.ChartVO">
+		select * from(
+		select * from(
+			select rownum as rn, c.* from 
+			( (select * from chart where title like '%'||#{param2}||'%' order by cseq desc) c )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<insert id="chartInsert" parameterType="com.eco.dto.ChartVO">
+		insert into chart(cseq, title, img)
+		values(chart_seq.nextval, #{title}, #{img})
+	</insert>
+	
+	
+	<select id="listGenre" resultType="com.eco.dto.GenreVO">
+		select * from(
+		select * from(
+			select rownum as rn, g.* from 
+			( (select * from genre where title like '%'||#{param2}||'%' order by gseq desc) g )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<insert id="genreInsert" parameterType="com.eco.dto.GenreVO">
+		insert into genre(gseq, title, img)
+		values(genre_seq.nextval, #{title}, #{img})
+	</insert>
+	
+	<select id="getTheme" resultType="com.eco.dto.ThemeVO">
+		select * from theme where tseq=#{param1}
+	</select>
+	
+	<update id="themeUpdate" parameterType="com.eco.dto.ThemeVO">
+		update theme set title=#{title}, img=#{img}  where tseq=#{tseq}
+	</update>
+	
+	<select id="getGenre" resultType="com.eco.dto.GenreVO">
+		select * from genre where gseq=#{param1}
+	</select>
+	
+	<update id="genreUpdate" parameterType="com.eco.dto.GenreVO">
+		update genre set title=#{title}, img=#{img} where gseq=#{gseq}
+	</update>
+	
+	<select id="getChart" resultType="com.eco.dto.ChartVO">
+		select * from chart where cseq=#{param1}
+	</select>
+	
+	<update id="chartUpdate" parameterType="com.eco.dto.ChartVO">
+		update chart set title=#{title}, img=#{img} where cseq=#{cseq}
+	</update>
+	
+	<delete id="themeDelete">
+		delete from theme where tseq=#{param1}
+	</delete>
+	
+	<delete id="genreDelete">
+		delete from genre where gseq=#{param1}
+	</delete>
+	
+	<delete id="chartDelete">
+		delete from chart where cseq=#{param1}
+	</delete>
+	
+	<update id="musicUpdateTheme" parameterType="com.eco.dto.MusicVO">
+		update music set theme = #{theme} where mseq = #{mseq}
+	</update>
+	
+	<update id="musicUpdateChart" parameterType="com.eco.dto.MusicVO">
+		update music set chart = #{chart} where mseq = #{mseq}
+	</update>
+	
+	<select id="listMusic" resultType="com.eco.dto.MusicVO">
+		select * from music where chart like '%'||#{chart}||'%'
+	</select>
+	
+	<select id="listMusic1" resultType="com.eco.dto.MusicVO">
+		select * from music where theme like '%'||#{theme}||'%'
+	</select>
+</mapper>

@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+/* member 공통 */
+/************************************************************************************************************************************/
+
+/* 바디 폼 - article에 사용 */
+.memberForm {position:relative;margin:0 auto;width:600px;height:460px;border:3px solid silver;background:none;padding:50px;padding-top:100px;}
+.joinForm{position:relative;margin:0 auto;width:600px;height:800px;border:3px solid silver;background:none;padding:50px;padding-top:100px;text-align:center;}
+
+
+/* 텍스트 박스 */
+.textbox{position:relative;margin-left:auto;margin-right:auto;color:black;font-size:18px;height:50px;font-weight:bold;background:none;border:none;border-bottom:2px solid silver;}
+input::placeholder{color: silver;}
+
+/* 자동완성 선택시 색변경 제거 */
+input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+	 transition: background-color 5000s ease-in-out 0s;
+	 -webkit-transition: background-color 9999s ease-out;
+     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+     -webkit-text-fill-color: #000000 !important;
+   }
+
+/************************************************************************************************************************************/
+
+ /* Login */ 
+.submit{width:420px;height:70px;margin-top:30px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:white;font-weight:bold;cursor:pointer;}
+.btn{position:relative;float:left;width:200px;height:50px;margin-top:20px;border:none;background:#C9C6F7;border-radius:10px;font-size:90%;color:black;font-weight:bold;cursor:pointer;}
+
+/* pwChecking */
+#pwCheckingSubmit{position:relative;width:380px;height:70px;margin:0px 105px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:white;font-weight:bold;cursor:pointer;}
+
+/* updateMember */
+.other_buttons{position:relative;width:74%;height:90px;margin:0 auto;}
+.infoBox{position:relative;margin:0px auto; width:440px; height:auto;margin-top:10px;text-align:left;}
+
+/* Contract */
+#contract {font-family: 'Noto Sans KR', sans-serif; font-size:10pt; font-weight: 500;resize:none;border:none;}
+#next{position:relative;margin:20px -5px;line-height:30px;width:100px;height:30px;border:none;background:#C9C6F7;border-radius:10px;font-size:100%;color:black;font-weight:bold;}
+#contract::-webkit-scrollbar {width: 15px;}
+#contract::-webkit-scrollbar-thumb {
+  background-color: #311851;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+#contract::-webkit-scrollbar-track {
+  background-color: #C9C6F7;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+    
+/* joinForm */
+#recheck{position:relative;width:100px;height:18px;line-height:18px;margin-left:30px;border:none;background:#C9C6F7;font-size:85%;color:black;font-weight:bold;border-radius:10px;cursor:pointer;}
+
+/* membershipForm*/
+#buying{position:relative; margin:0px; width:100%; height:150px; color:white; background:#311851;
+text-align: left; line-height:150px; font-size:200%;}
+.product{position:relative;width:75%;height:120px;margin:0px auto;margin-top:30px;line-height:100px;}
+#select1{position:relative;margin:0px auto;}
+#select2{position:relative;margin:0px auto;}
+#select3{position:relative;margin:0px auto;}
+.banner{position:relative; float:right;margin:0px auto;width:430px;height:100px;}

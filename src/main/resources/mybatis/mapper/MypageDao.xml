@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eco.dao.IMypageDao">
+	
+	<select id="getMusic" resultType="com.eco.dto.MusicVO">
+		select * from likemusic_view where useq=#{param1} order by cdate desc
+	</select>
+
+	<select id="getArtist" resultType="com.eco.dto.ArtistVO">
+		select * from likeartist_view where useq=#{param1} order by cdate desc
+	</select>
+	
+	<select id="getAlbum" resultType="com.eco.dto.AlbumVO">
+		select * from likealbum_view where useq=#{param1} order by cdate desc
+	</select>
+
+	<select id="listBundle" resultType="com.eco.dto.BundleVO">
+		select * from bundle_master where useq=#{param1} and bmseq=#{param2} order by cdate desc
+	</select>
+	
+	<delete id="BDMDelete">
+		delete from bundle_detail where bdseq = #{param1}
+	</delete>
+	
+</mapper>

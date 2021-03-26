@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
+	.headerFont {color: white; text-decoration: none;}
+    body {font-family: 'Noto Sans KR', sans-serif;margin: 0;}
+    .font th {font-weight: 500; color: white;}
+    .font td {font-weight: 300; color: white;
+                text-align: center; padding-top: 6px; padding-bottom: 6px;}
+
+    /* title */
+    #title{width:950px;height:200px;margin: 0 auto;}
+    #titlefont{position:relative; float:left; margin-left:20px;text-decoration:none;color:white;font-weight: 500; font-size:140%;background: #311851;}
+    /* header 의 위치*/
+    .headerBox {width: 100%; height: 200px; background: #311851;padding:0px;margin:0 auto;margin-top:-10px;} 
+    
+    /* header 의 content 표시 위치 */
+    #header {position:relative;width:950px;height:65%;/* border: 1px solid orange; */margin: 0 auto;}
+    
+     /* 로고 표시 */
+    .logo { position: relative; 
+            background-image: url(../pageimages/logo.png);
+            background-size: 100%;
+            width: 180px; height: 74px;float: left; margin: 5px auto; line-height: 100px;
+            margin-top: 30px; margin-left: 80px;}
+    
+    /* body 적용 */
+    .adminViewBox{width:950px;margin: 0 auto; margin-top: 30px;padding:0px;}
+    
+    /* adminLogin */
+    #adminForm{position:relative;margin:0 auto;margin-top:240px;width:850px;height:400px;background:none;}
+    #infobox{position:relative;float:left; width:420px; height:400px; }
+   #inputInfo{position:relative;margin:50px 20px 20px 15px;width:45%;height:320px; }
+   #inputLogo{position:relative;float:left; align-content:center;width:50%;height:400px;background:#311851;}
+    .textbox{position:relative;color:pink; border:0px;margin-bottom:20px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold; background: none;}
+    input::placeholder{color: silver;}
+    #login{width:378px;height:70px;padding:0px;margin:30px 0px;border:none;background:#593BA0;border-radius:10px;font-size:140%;color:white;font-weight:bold;}
+    .btn{position:relative;width:196px;height:50px;border:none;background:#C9C6F7;border-radius:10px;font-size:100%;color:black;font-weight:bold;}
+    
+    #login_logo { position:relative; background-image: url(../pageimages/logo.png);
+            background-size: 100%;
+            width: 300px; height: 130px;float: left; align-items:center;
+            margin:50px 60px;}
+    #adtitle{position:relative;float:left;margin:0px 80px;font-family: 'Noto Sans KR', sans-serif;font-weight: 500; color:white;text-align:center;font-size:30pt;}
+    /* /adminLogin */
+    
+    
+    /* dropbox menu */
+    .menubar {position:relative;margin:0 auto;width:950px;height:95px;font-size:20px;list-style:none;/* border:1px solid white; */}
+   
+    /* dropbox list */
+    .menu{position:relative;float:left;text-align:center; width:315px; height:95px;list-style:none;color:white;font-weight: 500; font-size:140%;margin:0px auto;line-height:80px;/* border:1px solid yellow; */}
+    .drop{position:relative;display:inline-block; }
+    
+    /* buttons */
+    .submenu1{position:absolute;color: white; list-style: none;line-height: 35px;width:1055px; height:80px;left:-390px;top:70px;display:none;}
+    .submenu2{position:absolute;color: white; list-style: none;line-height: 35px;width:1055px; height:80px;right:-5px;top:70px;display:none;}
+    
+    .submenu1 li{position:relative;float:left;margin-left:200px;line-height:80px;font-size:110%;font-weight:bold;z-index:0; }
+    .submenu2 li{position:relative;float:left;margin-left:200px;line-height:80px;font-size:110%;font-weight:bold;z-index:0; }
+    
+    .drop:hover .submenu1{display:block;}
+    .drop:hover .submenu2{display:block;}  
+   
+    .submenu1:hover{display:block;}
+    .submenu2:hover{display:block;}

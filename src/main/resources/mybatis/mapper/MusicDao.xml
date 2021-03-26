@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eco.dao.IMusicDao">
+
+<!-- 210208 추가 (Main 사용) -->
+	<select id="getNewList" resultType="com.eco.dto.MusicVO">
+		select rownum as rn, t.* from((
+			select * from music_view order by pdate desc
+		)t)
+	</select>
+	<!-- 임시 -->
+	<select id="getRecommendMusic" resultType="com.eco.dto.MusicVO">
+		select rownum as rn, t.* from((
+			select * from music_view order by pdate
+		)t)
+	</select>
+<!-- 210208 끝 -->
+
+<!-- abtypeList -->
+<select id="abtypeListByAlbum" resultType="String">select distinct abtype from album_view</select>
+<!-- groupynList -->
+<select id="groupynListByArtist" resultType="String">select distinct groupyn from artist_view</select>
+<!-- genderList -->
+<select id="genderListByArtist" resultType="String">select distinct gender from artist_view</select>
+<!-- genreList -->
+<select id="genreListByAlbum" resultType="com.eco.dto.GenreVO">select distinct g.gseq, g.title from album_view av left join genre g on g.gseq = av.gseq</select>
+
+
+<!-- Theme Chart Genre 단순목록 -->
+	<select id="themeList" resultType="com.eco.dto.ThemeVO">
+		select * from theme order by tseq asc
+	</select>
+	<select id="chartList" resultType="com.eco.dto.ChartVO">
+		select * from chart order by cseq asc
+	</select>
+	<select id="genreList" resultType="com.eco.dto.GenreVO">
+		select * from genre order by gseq asc
+	</select>
+
+	<select id="themeListIncludedMusic" resultType="com.eco.dto.ThemeVO">
+		select t.* from theme t
+			inner join (
+				select distinct regexp_substr(themes.theme, '[^|]+', 1, level) as theme
+				from (select distinct theme as theme from music_view where theme is not null) themes
+				connect by level &lt;= length(regexp_replace(themes.theme, '[^|]+','')) + 1
+			) includedtheme
+				on includedtheme.theme = t.tseq
+	</select>
+
+	<select id="chartListIncludedMusic" resultType="com.eco.dto.ChartVO">
+		select c.* from chart c
+			inner join (
+				select distinct regexp_substr(charts.chart, '[^|]+', 1, level) as  chart
+				from (select distinct chart as chart from music_view where chart is not null) charts
+				connect by level &lt;= length(regexp_replace(charts.chart, '[^|]+','')) + 1
+			) includedchart
+				on includedchart.chart = c.cseq
+	</select>
+
+	<select id="genreListIncludedMusic" resultType="com.eco.dto.GenreVO">
+		select g.* from genre g
+			inner join (
+				select distinct gseq as gseq from music_view
+			) includedgenre
+				on includedgenre.gseq = g.gseq
+	</select>
+	
+	<select id="genreListIncludedArtist" resultType="com.eco.dto.GenreVO">
+		select g.* from genre g
+			inner join (
+				select distinct gseq as gseq from artist_view
+			) includedgenre
+				on includedgenre.gseq = g.gseq
+	</select>
+	
+	
+
+<!-- Theme ChartVO GenreVO 단순목록 -->
+
+<!-- 어떤것에 의한 곡목록 -->
+	<select id="musicListByTheme" resultType="com.eco.dto.MusicVO">
+		select rownum as rn, t.* from((
+			select * from music_view where theme like '%'||#{param1}||'%'order by rank asc
+		)t)
+	</select>
+	<select id="musicListByChart" resultType="com.eco.dto.MusicVO">
+		select rownum as rn, t.* from((
+			select * from music_view where chart like '%'||#{param1}||'%'order by rank asc
+		)t)
+	</select>
+	<select id="musicListByGenre" resultType="com.eco.dto.MusicVO">
+		select rownum as rn, t.* from((
+			select * from music_view where gseq = #{param1}order by rank asc
+		)t)
+	</select>
+	<select id="musicListByAlbum" resultType="com.eco.dto.MusicVO">
+		select rownum as rn, t.* from((
+			select * from music_view where abseq = #{param1}
+		)t)
+	</select>
+	<select id="musicListByArtist" resultType="com.eco.dto.MusicVO">
+		select rownum as rn, t.* from((
+			select * from music_view where atseq = #{param1}
+		)t)
+	</select>
+	<select id="musicListByArtistUseSearchDTO" parameterType="com.eco.dto.search.SearchDTO" resultType="com.eco.dto.MusicVO">
+		select * from music_view where atseq = #{atseq}
+		order by
+		<choose>
+				<when test='searchFilter == "titleAsc"'>title asc</when>
+				<when test='searchFilter == "pdateDesc"'>pdate desc</when>
+				<when test='searchFilter == "rankAsc"'>rank asc</when>
+				<otherwise>mseq desc</otherwise>
+		</choose>
+	</select>
+	<!-- 메인에서 번들마스터에 의한 곡목록  -->
+	<select id="musicListByBundle" resultType="com.eco.dto.MusicVO">
+		select bd.bdseq, m.* from bundle_detail bd
+			left join music_view m on m.mseq = bd.mseq
+		where bd.bmseq = #{param1}
+		order by bd.bdseq
+	</select>
+<!-- 어떤것에 의한 곡목록 -->
+
+<!-- 어떤것에 의한 앨범목록 -->
+
+	<!-- 아티스트에 의한 앨범목록 -->
+	<select id="albumListByArtist" resultType="com.eco.dto.AlbumVO">
+		select rownum as rn, t.* from((
+			select * from album_view where atseq = #{param1}
+		)t)
+	</select>
+	
+	<select id="albumListByArtistUseSearchDTO" parameterType="com.eco.dto.search.SearchDTO" resultType="com.eco.dto.AlbumVO">
+		select * from album_view where atseq = #{atseq}
+		order by
+		<choose>
+				<when test='searchFilter == "titleAsc"'>title asc</when>
+				<when test='searchFilter == "pdateDesc"'>pdate desc</when>
+				<when test='searchFilter == "rankAsc"'>rank asc</when>
+				<otherwise>abseq desc</otherwise>
+		</choose>
+	</select>
+<!-- 어떤것에 의한 앨범목록 -->
+
+<!-- 단건 -->
+	<select id="getMusic" resultType="com.eco.dto.MusicVO">
+		select * from music_view where mseq = #{param1}
+	</select>
+	<select id="getAlbum" resultType="com.eco.dto.AlbumVO">
+		select * from album_view where abseq = #{param1}
+	</select>
+	<select id="getArtist" resultType="com.eco.dto.ArtistVO">
+		select * from artist_view where atseq = #{param1}
+	</select>
+<!-- 단건 -->
+
+<!-- 좋아요 -->
+	<insert id="likeMusic">
+		insert into music_like(useq, mseq) values(#{param1}, #{param2})
+	</insert>
+	<insert id="likeAlbum">
+		insert into album_like(useq, abseq) values(#{param1}, #{param2})
+	</insert>
+	<insert id="likeArtist">
+		insert into artist_like(useq, atseq) values(#{param1}, #{param2})
+	</insert>
+
+
+	<select id="likeMusicListByUseq" resultType="_int">
+		select mseq from music_like where useq = #{param1}
+	</select>
+	<select id="likeAlbumListByUseq" resultType="_int">
+		select abseq from album_like where useq = #{param1}
+	</select>
+	<select id="likeArtistListByUseq" resultType="_int">
+		select atseq from artist_like where useq = #{param1}
+	</select>
+<!-- 좋아요 -->
+
+<!-- 좋아요 취소 -->
+	<delete id="unlikeMusic">
+		delete from music_like where useq = #{param1} and mseq = #{param2}
+	</delete>
+	<delete id="unlikeAlbum">
+		delete from album_like where useq = #{param1} and abseq = #{param2}
+	</delete>
+	<delete id="unlikeArtist">
+		delete from artist_like where useq = #{param1} and atseq = #{param2}
+	</delete>
+<!-- 좋아요 취소 -->
+
+<!-- 무시할래요 -->
+	<insert id="banMusic">
+		insert into music_ban (useq, mseq) values (#{param1}, #{param2})
+	</insert>
+	<select id="banListByUseq" resultType="_int">
+		select mseq from music_ban where useq = #{param1}
+	</select>
+<!-- 무시할래요 -->
+
+<!-- 무시안할래요 -->
+	<delete id="unbanMusic">
+		delete from music_ban where useq = #{param1} and mseq =#{param2}
+	</delete>
+<!-- 무시안할래요 -->
+
+	<select id="musicListAtBrowse" resultType="com.eco.dto.MusicVO" parameterType="com.eco.dto.search.SearchDTO">
+		select * from(
+		select * from(
+		select rownum as rn, t.* from 
+		((
+			select * from music_view
+			<where>
+				<choose>
+					<when test="selectedType == 'chart'">and chart like '%'||#{selectedSeq}||'%'</when>
+					<when test="selectedType == 'genre'">and gseq = #{selectedSeq}</when>
+				</choose>
+			</where>
+			order by rank asc
+		)t)
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.displayRow}
+	</select>
+
+</mapper>

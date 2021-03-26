@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.admin.dao.IBundleManageDao">
+
+	<!-- 관리자에 의한 번들(메인용) -->
+	<select id="getBundle" resultType="com.eco.dto.BundleVO">
+		select * from bundle_master where bmseq = #{param1}
+	</select>
+
+	<select id="list" resultType="com.eco.dto.BundleVO" parameterType="com.eco.dto.search.SearchDTO">
+		select * from(
+		select * from(
+		select rownum as rn, b.* from 
+		((
+			select * from bundle_view
+			<where>
+				<!-- searchkeywordTarget like searchKeyword -->
+				<if test="searchkeywordTarget != ''">
+					<choose>
+						<when test="searchkeywordTarget == 'title'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+					</choose>
+				</if>
+
+				<!-- searchUseyn = -->
+				<if test="searchUseyn != ''">and useyn = #{searchUseyn}</if>
+
+			</where>
+			order by
+				<choose>
+					<when test="searchFilter == 'titleAsc'">title asc</when>
+					<when test="searchFilter == 'useynAsc'">useyn asc</when>
+					<when test="searchFilter == 'cdateAsc'">cdate asc</when>
+					<when test="searchFilter == 'mucountAsc'">mucount asc</when>
+					<when test="searchFilter == 'titleDesc'">title desc</when>
+					<when test="searchFilter == 'useynDesc'">useyn desc</when>
+					<when test="searchFilter == 'cdateDesc'">cdate desc</when>
+					<when test="searchFilter == 'mucountDesc'">mucount desc</when>
+					<otherwise>bmseq desc</otherwise>
+				</choose>
+		)b)
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.endNum}
+	</select>
+
+	<delete id="delete">
+		delete from bundle_master where bmseq = #{param1}
+	</delete>
+	
+	<delete id="detailClear">
+		delete from bundle_detail where bmseq = #{param1}
+	</delete>
+	
+	<insert id="detailAdd">
+		insert into bundle_detail (bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, #{param1}, #{param2})
+	</insert>
+
+	<update id="update" parameterType="com.eco.dto.BundleVO">
+		update bundle_master
+			set
+				title = #{title}
+				, useyn = #{useyn}
+		where bmseq = #{bmseq}
+	</update>
+
+	<insert id="insert" parameterType="com.eco.dto.BundleVO">
+		insert into bundle_master (
+			bmseq
+			, useq
+			, title
+			, useyn
+		) values (
+			bundle_master_seq.nextval
+			, 0
+			, #{title}
+			, #{useyn}
+		)
+		<selectKey keyProperty="bmseq" resultType="int">
+			select bundle_master_seq.currval as bmseq from dual
+		</selectKey>
+	</insert>
+
+</mapper>

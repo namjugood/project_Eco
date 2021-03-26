@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.admin.dao.IAlbumManageDao">
+
+	<select id="getArtist" resultType="com.eco.dto.ArtistVO">
+		select * from artist_view
+	</select>
+	
+	<!-- <select id="list" resultType="com.eco.dto.AlbumVO" parameterType="HashMap">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from 
+			( (select * from album_view where title like '%'||#{search.searchKeyword}||'%' order by abseq desc) b )
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.endNum}
+	</select> -->
+	<select id="list" resultType="com.eco.dto.AlbumVO">
+		select * from(
+		select * from(
+			select rownum as rn, g.* from 
+			( (select * from album_view where title like '%'||#{param2}||'%' order by abseq desc) g )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	
+	<insert id="insert" parameterType="com.eco.dto.AlbumVO">
+		insert into album(
+			abseq
+			, atseq
+			, title
+			, img
+			, content
+			, abtype
+			, gseq
+			, pdate
+		) values(
+			album_seq.nextval
+			, #{atseq}
+			, #{title}
+			, #{img, jdbcType=VARCHAR}
+			, #{content}
+			, #{abtype}
+			, #{gseq}
+			, #{inputpdate}
+		)
+		<selectKey keyProperty="abseq" resultType="int">
+			select album_seq.currval as abseq from dual
+		</selectKey>
+	</insert>
+	
+	<select id="list4find" resultType="com.eco.dto.AlbumVO" parameterType="com.eco.dto.search.SearchDTO">
+		select * from(
+		select * from(
+		select rownum as rn, t.* from 
+		((
+			select * from album_view
+			<where>
+				<!-- searchkeywordTarget like searchKeyword -->
+				<if test="searchkeywordTarget != ''">
+					<choose>
+						<when test="searchkeywordTarget == 'title'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+						<when test="searchkeywordTarget == 'name'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+					</choose>
+				</if>
+
+				<!-- selectedAbtype like -->
+				<if test="selectedAbtype != ''">and abtype like '%'||#{selectedAbtype}||'%'</if>
+
+				<!-- selectedGseq = -->
+				<if test="selectedGseq != 0">and gseq = #{selectedGseq}</if>
+
+			</where>
+			order by
+				<!-- searchFilter -->
+				<choose>
+					<when test="searchFilter == 'atseqAsc'">atseq asc</when>
+					<when test="searchFilter == 'atseqDesc'">atseq desc</when>
+					<when test="searchFilter == 'titleAsc'">title asc</when>
+					<when test="searchFilter == 'titleDesc'">title desc</when>
+					<when test="searchFilter == 'pdateAsc'">pdate asc</when>
+					<when test="searchFilter == 'pdateDesc'">pdate desc</when>
+					<when test="searchFilter == 'abtypeAsc'">abtype asc</when>
+					<when test="searchFilter == 'abtypeDesc'">abtype desc</when>
+					<when test="searchFilter == 'gseqAsc'">gseq asc</when>
+					<when test="searchFilter == 'gseqDesc'">gseq desc</when>
+					<when test="searchFilter == 'rankAsc'">rank asc</when>
+					<when test="searchFilter == 'rankDesc'">rank desc</when>
+					<when test="searchFilter == 'likecountAsc'">likecount asc</when>
+					<when test="searchFilter == 'likecountDesc'">likecount desc</when>
+					<when test="searchFilter == 'mucountAsc'">mucount asc</when>
+					<when test="searchFilter == 'mucountDesc'">mucount desc</when>
+					<otherwise>abseq desc</otherwise>
+				</choose>
+		)t)
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.endNum}
+	</select>
+
+	<update id="update" parameterType="com.eco.dto.AlbumVO">
+		update album
+			set
+				atseq = #{atseq}
+				, title = #{title}
+				, img = #{img, jdbcType=VARCHAR}
+				, content = #{content}
+				, abtype = #{abtype}
+				, gseq = #{gseq}
+		where abseq = #{abseq}
+	</update>
+
+	<delete id="delete">
+		delete from album where abseq = #{param1}
+	</delete>
+</mapper>

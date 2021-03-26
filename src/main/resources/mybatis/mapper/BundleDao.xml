@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eco.dao.IBundleDao">
+
+    <!-- 관리자에 의한 번들(메인용) -->
+	<select id="listBundleForMain" resultType="com.eco.dto.BundleVO">
+		select * from bundle_master where useq = 0 and useyn = 'Y'
+	</select>
+
+    <!-- 사용자에 의한 번들(유저용) -->
+    <select id="listBundleByUser" resultType="com.eco.dto.BundleVO">
+          select * from bundle_master where useq = #{param1}
+          order by bmseq desc
+    </select>
+    
+    <insert id="addBundleMaster" parameterType="com.eco.dto.BundleVO">
+    	insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, #{useq}, #{title}, #{useyn})
+    	<selectKey keyProperty="bmseq" resultType="_int" order="AFTER">
+    		select bundle_master_seq.currval from dual
+    	</selectKey>
+    </insert>
+    
+    <insert id="addBundleDetail" parameterType="com.eco.dto.BundleDetailVO">
+    	insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, #{bmseq}, #{mseq})
+    </insert>
+    
+</mapper>

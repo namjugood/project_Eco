@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.admin.dao.IBoardManageDao">
+	<insert id="noticeInsert" parameterType="com.eco.dto.BoardVO">
+		insert into notice (nseq, title, content)
+			values (notice_seq.nextval, #{ntitle},#{ncontent})
+	</insert>
+	<update id="noticeUpdate" parameterType="com.eco.dto.BoardVO">
+		update notice set title = #{title}, content = #{content} where nseq = #{nseq}
+	</update>
+	<insert id="myqnaA" parameterType="com.eco.dto.BoardVO">
+		insert into qReply (qrseq, qseq, useq, content)
+			values (qReply_seq.nextval, #{qseq}, #{useq}, #{replycontent})
+	</insert>
+	<insert id="adqnaInsert" parameterType="com.eco.dto.BoardVO">
+		insert into adminQna (adqseq, title, content)
+			values (adminQna_seq.nextval, #{title},#{content})
+	</insert>
+	<update id="adqnaUpdate" parameterType="com.eco.dto.BoardVO">
+		update adminQna set title = #{title}, content = #{content} where adqseq = #{adqseq}
+	</update>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.dao.ICountDao">
+
+	<select id="getAllCount" resultType="_int">
+		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
+	</select>
+	
+	<select id="getAllCountAll" resultType="_int">
+		select count(*) from ${param1}
+	</select>
+	
+	<select id="mygetAllCount" resultType="_int">
+		select count(*) from ${param1} where ${param2} = #{param3}
+	</select>
+	
+	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
+		select count(*) from ${searchTable}
+		<where>
+			<!-- searchkeywordTarget like searchKeyword -->
+			<if test="searchkeywordTarget != ''">
+				<choose>
+					<when test="searchkeywordTarget == 'title'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+					<when test="searchkeywordTarget == 'abtitle'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+					<when test="searchkeywordTarget == 'name'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+				</choose>
+			</if>
+
+			<!-- selectedGroupyn like -->
+			<if test="selectedGroupyn != ''">and groupyn like '%'||#{selectedGroupyn}||'%'</if>
+
+			<!-- selectedGender like -->
+			<if test="selectedGender != ''">and gender like '%'||#{selectedGender}||'%'</if>
+
+			<!-- selectedAbtype like -->
+			<if test="selectedAbtype != ''">and abtype like '%'||#{selectedAbtype}||'%'</if>
+
+			<!-- selectedGseq = -->
+			<if test="selectedGseq != 0">and gseq = #{selectedGseq}</if>
+
+			<!-- selectedTheme like -->
+			<if test="selectedTheme != ''">and theme like '%'||#{selectedTheme}||'%'</if>
+
+			<!-- selectedChart like -->
+			<if test="selectedChart != ''">and chart like '%'||#{selectedChart}||'%'</if>
+
+			<!-- selectedGenre = -->
+			<if test="selectedGenre != ''">and gseq = #{selectedGenre}</if>
+
+			<!-- searchUseyn -->
+			<if test="searchUseyn != ''">and useyn = #{searchUseyn}</if>
+			
+		</where>
+	</select>
+
+</mapper>
