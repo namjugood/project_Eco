@@ -1,4 +1,4 @@
-lang : [Kor]() | [Eng](https://github.com/namjugood/project_Eco/blob/6d4ae53a9e59f3831e6d885fe9936fa269661599/README.md)
+lang : [Kor](https://github.com/namjugood/project_Eco/blob/1683824d3555581dd7b6115c72fd8c85420d63dc/README/README_kor.md) | Eng.
 
 # Project : ECO
 ![count](https://img.shields.io/github/languages/count/namjugood/project_Eco)
