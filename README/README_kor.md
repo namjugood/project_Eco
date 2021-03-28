@@ -1,4 +1,4 @@
-lang : [Kor]() | [Eng](https://github.com/namjugood/project_Eco/blob/master/README.md)
+lang : 한국어. | [Eng](https://github.com/namjugood/project_Eco/blob/master/README.md)
 
 # Project : ECO
 ![count](https://img.shields.io/github/languages/count/namjugood/project_Eco)
