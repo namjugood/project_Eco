@@ -8,7 +8,7 @@ lang : [Kor]() | [Eng](https://github.com/namjugood/project_Eco/blob/6d4ae53a9e5
 ![last-commit](https://img.shields.io/github/last-commit/namjugood/project_Eco)
 
 ## 1. 프로젝트 정의
-1. 본 프로젝트는 __"음악 스트리밍 서비스 웹페이지"__입니다.
+1. 본 프로젝트는 __"음악 스트리밍 서비스 웹페이지"__ 입니다.
 	- 벤치마킹: FLO(https://www.music-flo.com/)  
 	- 자세한 내용은 아래의 링크를 통해 문서로 확인하실 수 있습니다(LNG:KOR & ENG)
 	
