@@ -1,3 +1,5 @@
+lang : [Kor]() | [Eng]()
+
 # Project : ECO
 ![count](https://img.shields.io/github/languages/count/namjugood/project_Eco)
 ![top](https://img.shields.io/github/languages/top/namjugood/project_Eco)
@@ -43,8 +45,8 @@
 <br>
 
 2. Music player
-- Data is flow like below.
-- Lines display procedure of data flows
+- Data is flow like below __Color lines__.
+- Color lines are displang procedure of data flows
 
 ![image](https://user-images.githubusercontent.com/80030590/112624274-bdfeb600-8e70-11eb-83dd-ef9a6206773a.png)
 
