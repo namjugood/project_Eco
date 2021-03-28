@@ -23,7 +23,7 @@ lang : [Kor]() | [Eng](https://github.com/namjugood/project_Eco/blob/6d4ae53a9e5
 ---
 ## 2. Caution
 - All of source is used for __<U>"Non-commercial project"</U>__
-- __<U>"We notice that Flo has almost authority and If you use it without permission, you are responsible for it."</U>__
+- __<U>"We notice, if you use it without any permission throw by the repository, you would be responsible for it."</U>__
 ---
 ## 3. Environment
 |OS|Windows 10|
